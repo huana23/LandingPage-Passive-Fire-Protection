@@ -32,7 +32,13 @@ export function buildPageMetadata(
   };
 }
 
-export function localBusinessJsonLd(company: Record<string, any>) {
+export function localBusinessJsonLd(
+  company: {
+    name: string;
+    description?: string;
+    [key: string]: unknown;
+  }
+) {
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
