@@ -46,7 +46,7 @@ export function buildPageMetadata({
       canonical: canonicalUrl,
     },
     openGraph: {
-      title,
+      title: title ?? undefined,
       description,
       url: canonicalUrl,
       type: "website",
@@ -55,7 +55,7 @@ export function buildPageMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: title ?? undefined,
       description,
     },
   };
