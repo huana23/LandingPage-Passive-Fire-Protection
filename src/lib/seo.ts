@@ -1,49 +1,76 @@
 import type { Metadata } from "next";
 
+type PageMetadataOptions = {
+  title: Metadata["title"];
+  description: string;
+  path?: string;
+  keywords?: string[];
+};
+
+type CompanyInfo = {
+  name: string;
+  description?: string;
+  url?: string;
+  [key: string]: unknown;
+};
+
 export const DEFAULT_KEYWORDS = [
-  "dịch vụ",
-  "doanh nghiệp",
-  "Việt Nam",
+  "passive fire protection",
+  "fireproofing NSW",
+  "spray-applied fire protection",
+  "Sydney fire protection",
+  "CAFCO 300",
+  "Perlifoc HP",
+  "Fendolite",
+  "fire-rated duct protection",
 ];
 
-export function buildPageMetadata(
-  title: string,
-  description: string,
-  path = "/"
-): Metadata {
+export function buildPageMetadata({
+  title,
+  description,
+  path = "/",
+  keywords = DEFAULT_KEYWORDS,
+}: PageMetadataOptions): Metadata {
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL ||
-    "https://example.com";
+    "https://adwarnerpfp.com";
+
+  const canonicalUrl = new URL(path, baseUrl).toString();
 
   return {
     title,
     description,
-    keywords: DEFAULT_KEYWORDS,
+    keywords,
+    metadataBase: new URL(baseUrl),
     alternates: {
-      canonical: path,
+      canonical: canonicalUrl,
     },
     openGraph: {
       title,
       description,
-      url: new URL(path, baseUrl).toString(),
+      url: canonicalUrl,
       type: "website",
-      locale: "vi_VN",
+      locale: "en_AU",
+      siteName: "A&D Warner Passive Fire Protection",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
     },
   };
 }
 
-export function localBusinessJsonLd(
-  company: {
-    name: string;
-    description?: string;
-    [key: string]: unknown;
-  }
-) {
+export function localBusinessJsonLd(company: CompanyInfo) {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "https://adwarnerpfp.com";
+
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: company.name,
     description: company.description,
-    url: process.env.NEXT_PUBLIC_SITE_URL || undefined,
+    url: company.url || baseUrl,
   };
 }
