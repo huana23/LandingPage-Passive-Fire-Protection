@@ -45,10 +45,14 @@ export const COMPANY = {
   name: "A&D Warner Pty Ltd",
   shortName: "A&D Warner",
   email: "Adwarnerptyltd@outlook.com",
+  phone: "+61 403 332 685",
+  phoneTel: "+61403332685",
   region: "Servicing Sydney & NSW-wide",
   copyright: "© 2026 A&D Warner Pty Ltd. All rights reserved.",
   tagline: "Passive Fire Protection — NSW",
   topBlurb: "Commercial fireproofing contractor",
+  // Optional — set via NEXT_PUBLIC_SITE_URL env var on Vercel; fallback here.
+  siteUrl: "https://adwarnerpfp.com",
 };
 
 export const NAV_LINKS = [

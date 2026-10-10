@@ -86,22 +86,14 @@ export function ContactForm() {
 
     setSubmitting(true);
     try {
-
       // Build the EmailJS template params using the template's expected keys.
-      // We send plain strings only. For the `startDate` input (an HTML
-      // <input type="date">) the value is an ISO yyyy-mm-dd string, which
-      // EmailJS server-side would auto-detect as a date and re-format. We
-      // pre-format it on the client into a long human-readable string and
-      // prepend a non-breaking prefix so it cannot be parsed as a Date.
-      // The template variable is also named `when` (no "date" substring)
-      // to bypass EmailJS' server-side type coercion on the key name.
-      // We send plain strings only. For the `startDate` input (an HTML
-      // <input type="date">) the value is an ISO yyyy-mm-dd string, which
-      // EmailJS server-side would auto-detect as a date and re-format. We
-      // pre-format it on the client into a long human-readable string and
-      // prepend a non-breaking prefix so it cannot be parsed as a Date.
-      // The template variable is also named `when` (no "date" substring)
-      // to bypass EmailJS' server-side type coercion on the key name.
+      // We send plain strings only. The `startDate` input is an HTML
+      // <input type="date"> whose value is an ISO yyyy-mm-dd string — EmailJS
+      // would auto-detect that as a date and re-format it server-side, so we
+      // pre-format it on the client into a human-readable string and prepend
+      // "Approx. " to flag it as plain text. The template variable is also
+      // named `when` (no "date" substring) to bypass EmailJS' type coercion
+      // on the key name.
       const templateParams: Record<string, string> = {};
       for (const [internalKey, templateKey] of Object.entries(
         TEMPLATE_PARAM_MAP,
@@ -145,16 +137,16 @@ export function ContactForm() {
   }
 
   return (
-      <form
-        id="contact-form"
-        onSubmit={handleSubmit}
-        className="relative overflow-hidden rounded-lg border border-foreground/10 bg-card p-6 shadow-xl shadow-foreground/5 md:p-8"
-        noValidate
-        style={{ colorScheme: "light" }}
-      >
+    <form
+      id="contact-form"
+      onSubmit={handleSubmit}
+      className="relative overflow-hidden rounded-lg border border-foreground/10 bg-card p-6 shadow-xl shadow-foreground/5 md:p-8"
+      noValidate
+      style={{ colorScheme: "light" }}
+    >
       {/* Decorative top accent bar */}
       <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-accent via-accent/50 to-transparent" />
-      
+
       {/* Decorative corner accent */}
       <div className="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-accent/5" />
       <div className="absolute -right-6 -top-6 h-12 w-12 rounded-full bg-accent/10" />
@@ -379,7 +371,7 @@ export function ContactForm() {
           {submitting ? "Submitting…" : "Submit enquiry"}
         </button>
       </div>
-      </div>
+    </div>
     </form>
   );
 }

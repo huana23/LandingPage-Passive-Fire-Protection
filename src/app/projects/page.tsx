@@ -4,12 +4,14 @@ import { Reveal } from "@/components/sites/adwarnerpfp/reveal";
 import { Photo } from "@/components/sites/adwarnerpfp/photo";
 import { SectionShell } from "@/components/sites/adwarnerpfp/section-shell";
 import { PROJECTS } from "@/components/sites/adwarnerpfp/data";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Recent Projects | Commercial Fireproofing Contractor NSW",
   description:
-    "A selection of passive fire protection and spray-applied fireproofing works across commercial construction projects in NSW.",
-};
+    "Recent passive fire protection & spray-applied fireproofing works across commercial construction projects in NSW. CAFCO 300, Perlifoc HP, Fendolite & PSK. View project gallery.",
+  path: "/projects",
+});
 
 export default function ProjectsPage() {
   return (

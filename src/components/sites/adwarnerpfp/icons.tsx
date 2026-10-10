@@ -1,6 +1,5 @@
 // Lucide icon components, pre-resolved at module load. We export them by name
-// (and a default `Icon` re-export) so consumers can:
-//   import { MailIcon, MAP_PIN, pickIcon } from "@/.../icons";
+// (and a `pickIcon(name)` helper) so consumers can import what they need
 // without ever calling icon(...) inside a render function — the lint rule
 // `react-hooks/static-components` forbids that.
 
@@ -13,6 +12,8 @@ import {
   MapPin,
   Menu,
   X,
+  Phone,
+  Play,
   ShieldCheck,
   HardHat,
   ClipboardCheck,
@@ -34,6 +35,8 @@ export const MailIcon = Mail;
 export const MapPinIcon = MapPin;
 export const MenuIcon = Menu;
 export const XIcon = X;
+export const PhoneIcon = Phone;
+export const PlayIcon = Play;
 export const ShieldCheckIcon = ShieldCheck;
 export const HardHatIcon = HardHat;
 export const ClipboardCheckIcon = ClipboardCheck;
@@ -54,6 +57,8 @@ export type IconName =
   | "map-pin"
   | "menu"
   | "x"
+  | "phone"
+  | "play"
   | "shield-check"
   | "hard-hat"
   | "clipboard-check"
@@ -74,6 +79,8 @@ const ICONS: Record<IconName, ComponentType<{ className?: string; strokeWidth?: 
   "map-pin": MapPinIcon,
   menu: MenuIcon,
   x: XIcon,
+  phone: PhoneIcon,
+  play: PlayIcon,
   "shield-check": ShieldCheckIcon,
   "hard-hat": HardHatIcon,
   "clipboard-check": ClipboardCheckIcon,

@@ -4,7 +4,6 @@ import { Photo } from "@/components/sites/adwarnerpfp/photo";
 import { Reveal } from "@/components/sites/adwarnerpfp/reveal";
 import { SectionShell } from "@/components/sites/adwarnerpfp/section-shell";
 import { SHOWCASE } from "@/components/sites/adwarnerpfp/data";
-import { cn } from "@/lib/utils";
 
 export function ExperienceSection() {
   return (
@@ -51,6 +50,7 @@ export function ExperienceSection() {
                   alt="CAFCO 300-covered structural beams on a commercial construction level in NSW"
                   className="aspect-[3/4] w-full"
                   sizes="(min-width: 1024px) 25vw, 50vw"
+                  priority
                 />
               </div>
             </Reveal>

@@ -4,7 +4,19 @@ import { WhoWeAreSection } from "@/components/sites/adwarnerpfp/home/who-we-are-
 import { ServicesSection } from "@/components/sites/adwarnerpfp/home/services-section";
 import { WhyUsSection } from "@/components/sites/adwarnerpfp/home/why-us-section";
 import { ExperienceSection } from "@/components/sites/adwarnerpfp/home/experience-section";
+import { ProcessSection } from "@/components/sites/adwarnerpfp/home/process-section";
 import { QualitySafetySection } from "@/components/sites/adwarnerpfp/home/quality-safety-section";
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata = buildPageMetadata({
+  title: {
+    default: "Passive Fire Protection NSW | Spray Fireproofing Sydney | A&D Warner",
+    template: "%s | A&D Warner",
+  },
+  description:
+    "A&D Warner delivers spray-applied fire protection & passive fireproofing across Sydney & NSW. CAFCO 300, Perlifoc HP, Fendolite & PSK systems, fire-rated duct protection, repairs and QA documentation. Request a quote.",
+  path: "/",
+});
 
 export default function HomePage() {
   return (
@@ -14,6 +26,7 @@ export default function HomePage() {
       <ServicesSection />
       <WhyUsSection />
       <ExperienceSection />
+      <ProcessSection />
       <QualitySafetySection />
       <CtaBand
         image="/images/upper-level-structural-beams.jpg"

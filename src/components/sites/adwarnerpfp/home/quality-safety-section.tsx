@@ -6,7 +6,7 @@ import { pickIcon } from "@/components/sites/adwarnerpfp/icons";
 export function QualitySafetySection() {
   return (
     <SectionShell
-      number="05"
+      number="06"
       label="Quality & Safety"
       className="bg-secondary/60"
     >

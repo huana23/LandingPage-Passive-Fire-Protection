@@ -58,6 +58,24 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://adwarnerpfp.com/",
   },
+  // Replace these with the codes from Google Search Console + Bing Webmaster
+  // after you verify the domain. Empty strings are fine — Next.js will
+  // simply omit the <meta name="google-site-verification"> tag.
+  verification: {
+    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION || "",
+    // other: { "msvalidate.01": "bing-code-here" },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -80,6 +98,9 @@ export default function RootLayout({
             __html: EXTENSION_ATTRIBUTE_GUARD_SCRIPT,
           }}
         />
+        {/* Web App Manifest. Next.js 15 needs an explicit <link> tag here
+            for non-default manifest file names. */}
+        <link rel="manifest" href="/site.webmanifest" />
         {/* LocalBusiness + Organization + WebSite JSON-LD. Repeating on every
             page helps Google associate the entity with the site. */}
         <script
@@ -92,6 +113,10 @@ export default function RootLayout({
         <meta name="geo.region" content="AU-NSW" />
         <meta name="geo.placename" content="Sydney, New South Wales" />
         <meta name="ICBM" content="-33.8688,151.2093" />
+        {/* Format-detection re-asserts native mobile behaviour (we still want
+            addresses and phones tappable; we just turn OFF auto-linking of
+            email so that <a href="mailto:"> is the only mailto link). */}
+        <meta name="format-detection" content="telephone=yes" />
       </head>
       <ClientBody className="flex min-h-full flex-col font-sans">
         <a

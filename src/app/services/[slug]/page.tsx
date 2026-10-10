@@ -13,9 +13,36 @@ import {
   otherServices,
   type ServiceSlug,
 } from "@/components/sites/adwarnerpfp/data";
+import { buildPageMetadata, serviceJsonLd, faqJsonLd } from "@/lib/seo";
 
 const SLUGS = SERVICES.map((s) => s.slug);
 const SERVICE_IMAGES: string[] = SHOWCASE.map((item) => item.image);
+
+// Per-service FAQs — these are the same 4 questions every service page
+// answers, but worded around the specific system. Each appears in the
+// rendered <details> and in the FAQPage JSON-LD graph.
+const SERVICE_FAQS: { question: string; answer: string }[] = [
+  {
+    question: "What fire resistance level (FRL) do you deliver?",
+    answer:
+      "We work to the FRLs nominated in your project specifications and fire engineering report — commonly -/60/60, -/120/120, -/180/180 and -/240/240 for structural steel members. Our crews apply to specified thickness and verify throughout the works.",
+  },
+  {
+    question: "Do you service areas outside Sydney?",
+    answer:
+      "Yes. We service Sydney metro and projects state-wide across NSW — including Newcastle, Wollongong, Central Coast, Parramatta, Penrith, Liverpool, Campbelltown, Blacktown and North Sydney.",
+  },
+  {
+    question: "What information do you need for a project quote?",
+    answer:
+      "Drawings (PDF or DWG), project specifications, quantities (m² of structural steel or ductwork) and any fire engineering report. We can often give an indicative price from marked-up drawings, with a final figure after a site visit.",
+  },
+  {
+    question: "Do you provide QA documentation and thickness checks?",
+    answer:
+      "Yes. Every project includes thickness checks against the specified FRL, photographic records during application, and project-specific QA documentation suitable for handover to builders, fire engineers and certifiers.",
+  },
+];
 
 export function generateStaticParams() {
   return SLUGS.map((slug) => ({ slug }));
@@ -29,10 +56,26 @@ export async function generateMetadata({
   const { slug } = await params;
   if (!SLUGS.includes(slug as ServiceSlug)) return {};
   const detail = SERVICE_DETAILS[slug as ServiceSlug];
-  return {
-    title: `${detail.title} | A&D Warner`,
-    description: detail.intro.slice(0, 160),
-  };
+  const title = `${detail.title} Sydney & NSW | A&D Warner`;
+
+  // The detailed intro is much better than the short blurb for ranking.
+  const description = `${detail.blurb} Commercial fireproofing across Sydney & NSW.`.slice(
+    0,
+    160,
+  );
+
+  return buildPageMetadata({
+    title,
+    description,
+    path: `/services/${slug}`,
+    keywords: [
+      detail.title.toLowerCase(),
+      `${detail.title.toLowerCase()} sydney`,
+      `${detail.title.toLowerCase()} nsw`,
+      "passive fire protection nsw",
+      "spray-applied fireproofing sydney",
+    ],
+  });
 }
 
 export default async function ServicePage({
@@ -51,8 +94,26 @@ export default async function ServicePage({
     serviceIndex >= 0 ? serviceIndex % SERVICE_IMAGES.length : 0
   ];
 
+  // Build JSON-LD objects server-side and inline as <script> tags.
+  const serviceLd = serviceJsonLd({
+    name: detail.title,
+    description: detail.intro,
+    slug: slug as string,
+  });
+  const faqLd = faqJsonLd(SERVICE_FAQS);
+
   return (
     <main id="main" className="flex-1">
+      {/* Service + FAQ structured data for Google rich results */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
+
       <PageHeader
         eyebrow={`Service ${detail.number} — A&D Warner Pty Ltd`}
         title={detail.title}
@@ -132,6 +193,46 @@ export default async function ServicePage({
         </div>
       </section>
 
+      {/* FAQ section — pairs with FAQPage JSON-LD above for rich snippets */}
+      <section className="relative border-t border-foreground/15 py-24">
+        <div className="container max-w-3xl">
+          <Reveal>
+            <span className="text-xs font-bold uppercase tracking-[0.3em] text-accent">
+              FAQ
+            </span>
+            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight md:text-4xl">
+              Frequently asked questions
+            </h2>
+            <p className="mt-4 leading-relaxed text-muted-foreground">
+              Common questions about {detail.title.toLowerCase()} on
+              commercial construction projects across Sydney and NSW.
+            </p>
+          </Reveal>
+          <div className="mt-10 divide-y divide-foreground/15 border-y border-foreground/15">
+            {SERVICE_FAQS.map((faq) => (
+              <details
+                key={faq.question}
+                className="group py-5 [&_summary::-webkit-details-marker]:hidden"
+              >
+                <summary className="flex cursor-pointer items-start justify-between gap-4 text-left text-base font-semibold leading-snug">
+                  {faq.question}
+                  <span
+                    aria-hidden="true"
+                    className="mt-1 inline-block h-5 w-5 shrink-0 text-accent transition-transform group-open:rotate-45"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {faq.answer}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Other services — strong internal linking cluster */}
       <section className="relative border-t border-foreground/15 py-24">
         <div className="container">
           <Reveal>

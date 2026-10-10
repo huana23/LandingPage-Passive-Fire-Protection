@@ -1,0 +1,56 @@
+{
+  "name": "A&D Warner Pty Ltd",
+  "short_name": "A&D Warner",
+  "description": "A&D Warner provides spray-applied fire protection and passive fireproofing services for commercial construction projects across Sydney and NSW. CAFCO 300, Perlifoc HP, Fendolite & PSK systems, fire-rated duct protection, repairs and QA documentation.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#16161A",
+  "theme_color": "#c63d2a",
+  "lang": "en-AU",
+  "dir": "ltr",
+  "categories": ["business", "construction", "utilities"],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Request a Quote",
+      "short_name": "Quote",
+      "description": "Get in touch with A&D Warner about your project",
+      "url": "/contact?utm_source=pwa&utm_medium=shortcut",
+      "icons": [
+        {
+          "src": "/icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Our Services",
+      "short_name": "Services",
+      "description": "Browse our passive fire protection services",
+      "url": "/services?utm_source=pwa&utm_medium=shortcut",
+      "icons": [
+        {
+          "src": "/icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+}

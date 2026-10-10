@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MailIcon, MapPinIcon } from "@/components/sites/adwarnerpfp/icons";
+import { MailIcon, MapPinIcon, PhoneIcon } from "@/components/sites/adwarnerpfp/icons";
 import {
   COMPANY,
   FOOTER_NAV,
@@ -76,6 +76,16 @@ export function SiteFooter() {
               >
                 <MailIcon className="h-4 w-4 shrink-0" />
                 {COMPANY.email}
+              </a>
+            </li>
+            <li>
+              <a
+                href={`tel:${COMPANY.phoneTel}`}
+                className="inline-flex items-center gap-2 transition-colors hover:text-accent"
+                aria-label={`Call A&D Warner on ${COMPANY.phone}`}
+              >
+                <PhoneIcon className="h-4 w-4 shrink-0" />
+                {COMPANY.phone}
               </a>
             </li>
             <li className="inline-flex items-center gap-2">

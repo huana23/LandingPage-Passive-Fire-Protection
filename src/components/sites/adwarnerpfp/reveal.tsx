@@ -51,7 +51,11 @@ export function Reveal({
   }, [delayMs]);
 
   return (
-    <div ref={ref} className={cn("reveal", className)}>
+    <div
+      ref={ref}
+      className={cn("reveal", className)}
+      suppressHydrationWarning
+    >
       {children}
     </div>
   );

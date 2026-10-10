@@ -2,13 +2,15 @@ import { PageHeader } from "@/components/sites/adwarnerpfp/page-header";
 import { ContactForm } from "@/components/sites/adwarnerpfp/contact-form";
 import { SectionShell } from "@/components/sites/adwarnerpfp/section-shell";
 import { COMPANY } from "@/components/sites/adwarnerpfp/data";
-import { MailIcon, MapPinIcon } from "@/components/sites/adwarnerpfp/icons";
+import { MailIcon, MapPinIcon, PhoneIcon } from "@/components/sites/adwarnerpfp/icons";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Request a Quote | Passive Fire Protection Contractor Sydney",
   description:
-    "Tell us about your project, fireproofing requirements or passive fire protection scope and we will come back to you.",
-};
+    "Get a passive fire protection quote in Sydney & NSW. Send drawings, specifications, quantities and fire engineering requirements. Talk to A&D Warner today.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (
@@ -32,6 +34,16 @@ export default function ContactPage() {
                 >
                   <MailIcon className="h-4 w-4 shrink-0 text-accent" strokeWidth={1.75} />
                   {COMPANY.email}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`tel:${COMPANY.phoneTel}`}
+                  className="inline-flex items-center gap-2 transition-colors hover:text-accent"
+                  aria-label={`Call A&D Warner on ${COMPANY.phone}`}
+                >
+                  <PhoneIcon className="h-4 w-4 shrink-0 text-accent" strokeWidth={1.75} />
+                  {COMPANY.phone}
                 </a>
               </li>
               <li className="inline-flex items-center gap-2">

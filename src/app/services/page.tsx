@@ -2,12 +2,14 @@ import { PageHeader } from "@/components/sites/adwarnerpfp/page-header";
 import { CtaBand } from "@/components/sites/adwarnerpfp/cta-band";
 import { SectionShell } from "@/components/sites/adwarnerpfp/section-shell";
 import { ServicesList } from "@/components/sites/adwarnerpfp/services-list";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Fireproofing Services NSW | Structural Steel Fire Protection",
+export const metadata = buildPageMetadata({
+  title: "Fireproofing Services NSW | Structural Steel & Duct Protection",
   description:
-    "Spray-applied fireproofing and passive fire protection services for commercial construction projects across Sydney and NSW.",
-};
+    "Spray-applied fireproofing & passive fire protection services for commercial construction across Sydney & NSW. CAFCO 300, Perlifoc HP, Fendolite, PSK. FRL-compliant. Get a quote.",
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (
