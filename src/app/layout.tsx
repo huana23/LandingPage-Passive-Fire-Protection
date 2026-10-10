@@ -90,9 +90,31 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        {/* The hero LCP image is auto-preloaded by Next/Image (it emits its
+            own <link rel=preload as=image fetchPriority=high> with the full
+            responsive srcset). We let Next.js do it — adding a manual
+            preload here would double-fetch the same image. Kept as a
+            comment so the next person doesn't try to "improve" it. */}
+        {/* Preconnect to the Google Fonts CDN. The CSS is downloaded during
+            SSR by next/font, but the font FILES (woff2) still come from
+            fonts.gstatic.com. A preconnect saves the TLS handshake on the
+            first woff2 download, which otherwise adds ~100-200ms on mobile. */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         {/* Runs synchronously before React hydrates — strips extension-
             injected attributes from the entire document so the SSR HTML
-            matches the client DOM. */}
+            matches the client DOM.
+            NOTE: we wrap the inline body in `try/catch` and skip the rAF
+            sweep entirely on first parse so it cannot slow down the
+            critical rendering path. The post-hydration MutationObserver
+            in ClientBody now handles ALL ongoing stripping. This script
+            only does a single synchronous pass — enough to prevent the
+            hydration mismatch, but it never yields back into the rAF
+            loop that previously pegged the main thread for 5 seconds. */}
         <script
           dangerouslySetInnerHTML={{
             __html: EXTENSION_ATTRIBUTE_GUARD_SCRIPT,

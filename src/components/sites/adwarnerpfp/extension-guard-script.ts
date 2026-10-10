@@ -26,9 +26,15 @@
  *  4. meta charset, meta name="..." etc. duplicated by extensions
  *     These don't usually cause a hydration error but are kept clean.
  *
- * The script runs synchronously at parse time, then continues sweeping on
- * every animation frame until React hydration completes and ClientBody
- * calls window.__stopExtensionAttributeGuard().
+ * IMPORTANT — performance:
+ * This script runs in the critical rendering path. The previous version
+ *   ran an additional `requestAnimationFrame` sweep for up to 5 seconds,
+ *   which pegged the main thread and DELAYED the LCP image paint by
+ *   hundreds of milliseconds on slow mobile devices (PageSpeed flagged a
+ *   6.2s LCP, partly caused by this). The current version does a single
+ *   synchronous sweep ONLY (no rAF loop). The post-hydration
+ *   MutationObserver in `client-body.tsx` is responsible for catching
+ *   any extension pollution that happens after the initial parse.
  *
  * IMPORTANT: this script is loaded with dangerouslySetInnerHTML and runs
  * in the same microtask as the HTML parser. Do NOT use any modern JS
@@ -139,20 +145,13 @@ export const EXTENSION_ATTRIBUTE_GUARD_SCRIPT = `(function(){
     }
   }
 
-  // Run an initial sweep synchronously, then keep sweeping on every
-  // animation frame until React calls the stop function below.
-  sweep(document);
-  var stop = false;
-  function tick() {
-    if (stop) return;
-    sweep(document);
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
+  // Single synchronous sweep ONLY. Do NOT start a rAF loop here —
+  // that would block the main thread and delay the LCP image paint.
+  // The post-hydration MutationObserver in client-body.tsx will catch
+  // any extension pollution that arrives after the initial parse.
+  try { sweep(document); } catch (e) {}
 
-  // Bound the rAF loop: even if React never calls stop, give up after
-  // 5 seconds. Most extension injections happen in the first 200-500ms.
-  setTimeout(function () { stop = true; }, 5000);
-
-  window.__stopExtensionAttributeGuard = function () { stop = true; };
+  // Expose a no-op stop function so the client-body.tsx useEffect doesn't
+  // throw if it runs before this script (e.g. on a hot reload).
+  window.__stopExtensionAttributeGuard = function () {};
 })();`;

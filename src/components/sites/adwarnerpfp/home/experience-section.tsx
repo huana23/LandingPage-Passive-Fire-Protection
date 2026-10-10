@@ -50,7 +50,12 @@ export function ExperienceSection() {
                   alt="CAFCO 300-covered structural beams on a commercial construction level in NSW"
                   className="aspect-[3/4] w-full"
                   sizes="(min-width: 1024px) 25vw, 50vw"
-                  priority
+                  // NOTE: this is below the fold (it's in section "04"
+                  // Experience, not the hero). Marking it `priority` would
+                  // tell Next.js to preload a SECOND copy of the same image
+                  // and force `loading=eager` on it, which competes with the
+                  // real LCP image in section 01. We keep it lazy so the
+                  // hero wins the race.
                 />
               </div>
             </Reveal>

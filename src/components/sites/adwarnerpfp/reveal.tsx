@@ -9,6 +9,13 @@ import { cn } from "@/lib/utils";
  * opacity 0 -> 1 plus translateY 24px -> 0.
  *
  * The CSS that owns the transition is `globals.css` (the `.reveal` rule).
+ *
+ * Important for LCP: we DO NOT wrap the hero `<Photo>` in a `<Reveal>` —
+ * the hero image is the LCP element on this site, and a `opacity: 0`
+ * initial state would block the browser from reporting the LCP paint
+ * until our IntersectionObserver fires (≈ 100ms on slow devices).
+ * Anything that CAN contain the LCP element must render with `opacity: 1`
+ * on first paint.
  */
 export function Reveal({
   children,
@@ -27,6 +34,32 @@ export function Reveal({
 
     if (typeof IntersectionObserver === "undefined") {
       el.classList.add("is-visible");
+      return;
+    }
+
+    // If the element is already in the viewport on mount, reveal it on the
+    // next frame instead of waiting for a scroll event. This avoids a
+    // visible "pop" for content that's above-the-fold.
+    const rect = el.getBoundingClientRect();
+    const alreadyVisible =
+      rect.top < (window.innerHeight || 0) - 40 &&
+      rect.bottom > 0;
+
+    if (alreadyVisible) {
+      // requestAnimationFrame keeps the reveal out of the synchronous paint
+      // path so it doesn't compete with the LCP image.
+      const apply = () => {
+        if (delayMs) {
+          window.setTimeout(() => el.classList.add("is-visible"), delayMs);
+        } else {
+          el.classList.add("is-visible");
+        }
+      };
+      if (typeof window.requestAnimationFrame === "function") {
+        window.requestAnimationFrame(apply);
+      } else {
+        apply();
+      }
       return;
     }
 
