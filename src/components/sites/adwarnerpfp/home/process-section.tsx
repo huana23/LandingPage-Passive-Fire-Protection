@@ -73,7 +73,15 @@ export function ProcessSection() {
                     src={clip.videoSrc}
                     poster={clip.poster}
                     controls
-                    preload="metadata"
+                    // `preload="none"` keeps the browser from fetching the
+                    // video file until the user actually presses play.
+                    // The poster image is much smaller than the full MP4
+                    // and is the only network payload this section needs.
+                    // PageSpeed was flagging the video as part of the
+                    // "enormous network payloads" total because of the
+                    // old `preload="metadata"` (which still fetches the
+                    // first ~1 KB of moov atoms).
+                    preload="none"
                     playsInline
                     muted
                     loop

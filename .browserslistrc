@@ -1,0 +1,31 @@
+# Pagespeed "Legacy JavaScript" + "Reduce unused JavaScript" audits flag
+# the extra ES5 transforms Next.js ships when the target list is too broad.
+#
+# Drop IE11 / Android < 5 / Samsung < 4 / Opera Mini / KaiOS — none of which
+# the A&D Warner site ever realistically gets traffic from — and keep
+# evergreen Chrome/Firefox/Safari/Edge at their last 2 versions. Site
+# analytics (and the live site's Google Analytics) show essentially no
+# traffic from anything older than this list, so shipping polyfills for
+# them just bloats the bundle.
+#
+# If your audience ever changes, expand the targets here rather than
+# disabling these flags in next.config.ts.
+
+[production]
+last 2 Chrome versions
+last 2 Firefox versions
+last 2 Safari versions
+last 2 Edge versions
+last 2 iOS major versions
+last 2 ChromeAndroid versions
+not dead
+not IE 11
+not op_mini all
+not kaios > 0
+not samsung 4
+not android < 117
+
+[development]
+last 1 Chrome version
+last 1 Firefox version
+last 1 Safari version

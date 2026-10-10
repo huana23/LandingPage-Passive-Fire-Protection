@@ -9,18 +9,52 @@ import { COMPANY } from "@/components/sites/adwarnerpfp/data";
 import { buildPageMetadata, localBusinessJsonLd, DEFAULT_KEYWORDS } from "@/lib/seo";
 import "./globals.css";
 
+// Both fonts use `display: "swap"` so text is always painted with the
+// system fallback (Inter/system-ui) instead of being invisible while the
+// woff2 downloads. Without `swap`, a slow Google Fonts handshake blanks
+// the page for hundreds of milliseconds and PageSpeed flags it as
+// "Ensure text remains visible during webfont load".
+//
+// `preload: true` (the default) writes a <link rel=preload as=font
+// crossOrigin> for each weight in the head — that's what removes the
+// "render-blocking external stylesheet" penalty from the Google Fonts
+// CSS request.
+//
+// We trim Roboto_Slab's weights from 5 → 4 — the site never uses 900;
+// the loudest heading weight is 800 (the "font-black" utility). Dropping
+// 900 trims ~25 KB of woff2 + one <link rel=preload> from the head.
 const archivo = Archivo({
   variable: "--ff-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
+  preload: true,
+  fallback: [
+    "ui-sans-serif",
+    "system-ui",
+    "-apple-system",
+    "Segoe UI",
+    "Roboto",
+    "Helvetica Neue",
+    "Arial",
+    "sans-serif",
+  ],
 });
 
 const robotoSlab = Roboto_Slab({
   variable: "--ff-display",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800", "900"],
+  weight: ["500", "600", "700", "800"],
   display: "swap",
+  preload: true,
+  fallback: [
+    "Georgia",
+    "ui-serif",
+    "Cambria",
+    "Times New Roman",
+    "Times",
+    "serif",
+  ],
 });
 
 export const viewport: Viewport = {

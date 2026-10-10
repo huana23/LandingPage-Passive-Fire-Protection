@@ -2,6 +2,14 @@
 // (and a `pickIcon(name)` helper) so consumers can import what they need
 // without ever calling icon(...) inside a render function — the lint rule
 // `react-hooks/static-components` forbids that.
+//
+// We import only the icons we use. Each lucide icon is a one-line
+// `forwardRef` component. The library's barrel file `lucide-react` is the
+// canonical entry, so we use that — combined with
+// `experimental.optimizePackageImports: ["lucide-react"]` in
+// next.config.ts, the SWC compiler downlevels the barrel into per-icon
+// subpath imports in production, so unused icons never end up in the
+// bundle. That's what kills the "Reduce unused JavaScript" warning.
 
 import {
   ArrowRight,
@@ -70,7 +78,10 @@ export type IconName =
   | "factory"
   | "list-checks";
 
-const ICONS: Record<IconName, ComponentType<{ className?: string; strokeWidth?: number | string }>> = {
+const ICONS: Record<
+  IconName,
+  ComponentType<{ className?: string; strokeWidth?: number | string }>
+> = {
   "arrow-right": ArrowRightIcon,
   "arrow-up": ArrowUpIcon,
   "arrow-up-right": ArrowUpRightIcon,

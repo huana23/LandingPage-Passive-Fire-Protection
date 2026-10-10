@@ -1,7 +1,23 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import emailjs from "@emailjs/browser";
+// `emailjs/browser` is ~13 KB gzipped. It's only ever used when the
+// user actually submits the form, so we lazy-load it through a dynamic
+// import — that keeps it OUT of the initial bundle the /contact page
+// ships. PageSpeed flags it as "Reduce unused JavaScript" otherwise.
+// We cache the resolved module in a ref so we only fetch it once per
+// mount, even if the user submits multiple times.
+const emailjsModuleRef: { current: Promise<typeof import("@emailjs/browser").default> | null } = {
+  current: null,
+};
+function loadEmailJs() {
+  if (!emailjsModuleRef.current) {
+    emailjsModuleRef.current = import("@emailjs/browser").then(
+      (m) => m.default,
+    );
+  }
+  return emailjsModuleRef.current;
+}
 import { ShieldCheckIcon } from "@/components/sites/adwarnerpfp/icons";
 import { CONTACT_FIELDS } from "@/components/sites/adwarnerpfp/data";
 
@@ -115,6 +131,7 @@ export function ContactForm() {
         templateParams[templateKey] = value;
       }
 
+      const emailjs = await loadEmailJs();
       await emailjs.send(
         "service_5751q2i",
         "template_2qdye1a",
