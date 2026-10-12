@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
     // busts the cache automatically.
     minimumCacheTTL: 31536000,
     remotePatterns: [
-      { protocol: "https", hostname: "adwarnerpfp.com" },
+      { protocol: "https", hostname: "adwarnerpfp.au" },
       { protocol: "https", hostname: "*.vercel.com" },
     ],
   },
@@ -74,7 +74,7 @@ const nextConfig: NextConfig = {
       // NOTE: HSTS only belongs in production. Leaving it on in dev makes
       // the browser remember "always use HTTPS for this host" which can
       // lock you out of http://localhost:3000 (and even worse, redirect
-      // plain HTTP requests to the production https://adwarnerpfp.com/
+      // plain HTTP requests to the production https://adwarnerpfp.au/
       // if a previous user ever opened it). We gate the header behind
       // NEXT_PUBLIC_ENV so local dev stays on plain HTTP.
       ...(process.env.NEXT_PUBLIC_ENV === "production"

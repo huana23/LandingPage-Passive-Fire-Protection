@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { SERVICES } from "@/components/sites/adwarnerpfp/data";
 
 const SITE =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://adwarnerpfp.com";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://adwarnerpfp.au";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

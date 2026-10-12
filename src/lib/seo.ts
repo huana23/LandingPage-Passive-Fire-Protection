@@ -56,7 +56,7 @@ export function buildPageMetadata({
   ogImage = "/images/og/og-default.jpg",
 }: PageMetadataOptions): Metadata {
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://adwarnerpfp.com";
+    process.env.NEXT_PUBLIC_SITE_URL || "https://adwarnerpfp.au";
 
   const canonicalUrl = new URL(path, baseUrl).toString();
   const ogImageUrl = new URL(ogImage, baseUrl).toString();
@@ -104,7 +104,7 @@ export function buildPageMetadata({
  */
 export function localBusinessJsonLd(company: CompanyInfo) {
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://adwarnerpfp.com";
+    process.env.NEXT_PUBLIC_SITE_URL || "https://adwarnerpfp.au";
 
   const telephone = company.phoneTel || "";
 
@@ -241,7 +241,7 @@ export function serviceJsonLd(opts: {
   slug: string;
 }) {
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://adwarnerpfp.com";
+    process.env.NEXT_PUBLIC_SITE_URL || "https://adwarnerpfp.au";
 
   return {
     "@context": "https://schema.org",
@@ -286,7 +286,7 @@ export function breadcrumbJsonLd(
   items: { label: string; href?: string }[]
 ) {
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://adwarnerpfp.com";
+    process.env.NEXT_PUBLIC_SITE_URL || "https://adwarnerpfp.au";
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",

@@ -1,5 +1,5 @@
 // Centralised content for the A&D Warner clone. Sourced from the live site
-// (https://adwarnerpfp.com/). Every string here is the real production
+// (https://adwarnerpfp.au/). Every string here is the real production
 // text — no placeholders.
 //
 // Images are served from /images/* (see public/images/).
@@ -52,7 +52,7 @@ export const COMPANY = {
   tagline: "Passive Fire Protection — NSW",
   topBlurb: "Commercial fireproofing contractor",
   // Optional — set via NEXT_PUBLIC_SITE_URL env var on Vercel; fallback here.
-  siteUrl: "https://adwarnerpfp.com",
+  siteUrl: "https://adwarnerpfp.au",
 };
 
 export const NAV_LINKS = [

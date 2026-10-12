@@ -103,7 +103,7 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   alternates: {
-    canonical: "https://adwarnerpfp.com/",
+    canonical: "https://adwarnerpfp.au/",
   },
   // Replace these with the codes from Google Search Console + Bing Webmaster
   // after you verify the domain. Empty strings are fine — Next.js will
