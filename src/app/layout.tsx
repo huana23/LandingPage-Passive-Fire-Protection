@@ -85,8 +85,21 @@ export const metadata: Metadata = {
   },
   category: "Construction",
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml", sizes: "any" }],
-    apple: "/apple-icon.svg",
+    // In Next.js 15 App Router, a file at `src/app/favicon.ico` is auto-
+    // served at `/favicon.ico`, and a file at `src/app/apple-icon.png`
+    // is auto-served at `/apple-icon.png`. The metadata.icons block
+    // below just makes sure the <link rel="icon"> tags appear in <head>
+    // pointing at those auto-generated URLs. We keep an explicit
+    // <link rel="icon" type="image/svg+xml" href="/favicon.svg"> in the
+    // <head> below for browsers that prefer vector favicons.
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml", sizes: "any" },
+    ],
+    shortcut: [{ url: "/favicon.ico", sizes: "any" }],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
   manifest: "/site.webmanifest",
   alternates: {
@@ -157,6 +170,34 @@ export default function RootLayout({
         {/* Web App Manifest. Next.js 15 needs an explicit <link> tag here
             for non-default manifest file names. */}
         <link rel="manifest" href="/site.webmanifest" />
+        {/* Safari pinned-tab (macOS Safari). It takes a single-colour SVG
+            and applies its own fill. The .svg format keeps the icon crisp
+            at any zoom level in the pinned-tab bar. */}
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#c63d2a" />
+        {/* Microsoft tile configuration (Windows Start menu / Edge pinned
+            tabs). browserconfig.xml points to the 150x150 PNG and sets
+            the tile background colour. */}
+        <meta name="msapplication-config" content="/browserconfig.xml" />
+        <meta name="msapplication-TileColor" content="#c63d2a" />
+        <meta name="theme-color" content="#c63d2a" />
+        {/* Explicit <link rel="icon"> for crawlers. In Next.js App Router,
+            `/favicon.ico` is served from `src/app/favicon.ico`,
+            `/apple-icon.png` from `src/app/apple-icon.png`, and
+            `/favicon.svg` from `public/favicon.svg`. Listing them
+            here as classic <link> tags (in addition to metadata.icons)
+            is what Google's favicon crawler expects. */}
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link
+          rel="icon"
+          type="image/svg+xml"
+          sizes="any"
+          href="/favicon.svg"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-icon.png"
+        />
         {/* LocalBusiness + Organization + WebSite JSON-LD. Repeating on every
             page helps Google associate the entity with the site. */}
         <script

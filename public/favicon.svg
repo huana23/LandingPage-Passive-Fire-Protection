@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- White background so the diamond shape (which has no fill) reads cleanly
+       on light browser tab strips. The brand's actual logo sits on a white
+       field, so the favicon matches. -->
+  <rect width="64" height="64" fill="#FFFFFF"/>
+
+  <!-- Red diamond outline + central black square, matched to the supplied
+       Logo-A&D.jpg. Coordinates are derived from the 1693x1022 source:
+         - diamond spans roughly the full 64x64 viewBox
+         - center square is ~38% of the width
+         - the black "A&D" box inside the square is ~58% of the square -->
+  <g transform="translate(32 32)">
+    <!-- Outer red diamond -->
+    <polygon points="0,-30 30,0 0,30 -30,0" fill="none" stroke="#C63D2A" stroke-width="3.5" stroke-linejoin="miter"/>
+    <!-- Inner black box that holds the A&D monogram -->
+    <rect x="-11.5" y="-11.5" width="23" height="23" fill="#16161A"/>
+  </g>
+
+  <!-- "A&D" monogram in cream/off-white, matching the brand wordmark -->
+  <g transform="translate(32 32)" text-anchor="middle"
+     font-family="Georgia, 'Times New Roman', serif"
+     font-weight="700" fill="#F4F1EA">
+    <text y="4.5" font-size="11.5" letter-spacing="-0.3">A&amp;D</text>
+  </g>
+
+  <!-- Red bottom bar  same accent strip as the source logo's lower band -->
+  <rect x="0" y="56" width="64" height="8" fill="#C63D2A"/>
+</svg>

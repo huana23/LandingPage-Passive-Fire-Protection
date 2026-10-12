@@ -69,6 +69,10 @@ export function buildPageMetadata({
     alternates: {
       canonical: canonicalUrl,
     },
+    // Google's "site name" UI in the search result is fed by either the
+    // JSON-LD WebSite.name (already emitted by localBusinessJsonLd) or
+    // openGraph.siteName. We set both, plus the explicit `publisher` so
+    // every crawler agrees on the brand label.
     openGraph: {
       title: title ?? undefined,
       description,
@@ -114,7 +118,17 @@ export function localBusinessJsonLd(company: CompanyInfo) {
         alternateName: company.shortName || "A&D Warner",
         url: baseUrl,
         image: `${baseUrl}/images/og/og-default.jpg`,
-        logo: `${baseUrl}/icon.svg`,
+        logo: {
+          "@type": "ImageObject",
+          url: `${baseUrl}/icon.svg`,
+          contentUrl: `${baseUrl}/icon.svg`,
+          // Google's "logo" guidelines say the image must be at least
+          // 112x112. Our .ico contains 16/32/48 and the .svg is
+          // vector, so 48x48 is the largest raster square we own. The
+          // 512x512 PNG we ship is the realistic upper bound.
+          width: 512,
+          height: 512,
+        },
         telephone,
         email: company.email,
         priceRange: "$$",
@@ -197,7 +211,14 @@ export function localBusinessJsonLd(company: CompanyInfo) {
         name: company.name,
         legalName: "A&D Warner Pty Ltd",
         url: baseUrl,
-        logo: `${baseUrl}/icon.svg`,
+        logo: {
+          "@type": "ImageObject",
+          url: `${baseUrl}/icon.svg`,
+          contentUrl: `${baseUrl}/icon.svg`,
+          width: 512,
+          height: 512,
+        },
+        image: `${baseUrl}/images/og/og-default.jpg`,
         email: company.email,
         contactPoint: {
           "@type": "ContactPoint",

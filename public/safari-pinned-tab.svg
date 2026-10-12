@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Safari pinned-tab (macOS). The shape is rendered in pure black  Safari
+     adds its own masking. We provide the red diamond + black box shape so
+     the pinned tab visually mirrors the A&D brand mark. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <g transform="translate(32 32)">
+    <polygon points="0,-30 30,0 0,30 -30,0" fill="#000000"/>
+    <rect x="-12" y="-12" width="24" height="24" fill="#000000"/>
+  </g>
+</svg>
