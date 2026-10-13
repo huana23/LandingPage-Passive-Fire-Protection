@@ -42,9 +42,9 @@ const autofillOverride = `
  * stub) and a Submit button.
  *
  * Submission goes through EmailJS using:
- *   - Service ID:   service_5751q2i
- *   - Template ID:  template_2qdye1a
- *   - Public Key:   0cApYYlfV6mjdqCXt
+ *   - Service ID:   service_w956au7
+ *   - Template ID:  template_o6sa02n
+ *   - Public Key:   3KVGEKm65rW7Opyga
  *
  * The form's internal field names (camelCase, e.g. `projectName`, `scope`)
  * are mapped to the template's snake_case / single-word placeholders
@@ -133,10 +133,10 @@ export function ContactForm() {
 
       const emailjs = await loadEmailJs();
       await emailjs.send(
-        "service_5751q2i",
-        "template_2qdye1a",
+        "service_w956au7",
+        "template_o6sa02n",
         templateParams,
-        { publicKey: "0cApYYlfV6mjdqCXt" },
+        { publicKey: "3KVGEKm65rW7Opyga" },
       );
 
       setDone(true);

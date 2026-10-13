@@ -23,10 +23,15 @@ import "./globals.css";
 // We trim Roboto_Slab's weights from 5 → 4 — the site never uses 900;
 // the loudest heading weight is 800 (the "font-black" utility). Dropping
 // 900 trims ~25 KB of woff2 + one <link rel=preload> from the head.
+// We only load the weights we actually use (`font-bold`, `font-medium`,
+// `font-semibold` elsewhere in the app). `Roboto_Slab` only uses
+// `font-bold` + `font-black`. Trimming the unused weights drops 4 woff2
+// files (~25 KB each) from the head and saves 2 × `<link rel=preload>`
+// in the critical render path — directly improves LCP/FCP.
 const archivo = Archivo({
   variable: "--ff-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["500", "600", "700"],
   display: "swap",
   preload: true,
   fallback: [
@@ -44,7 +49,7 @@ const archivo = Archivo({
 const robotoSlab = Roboto_Slab({
   variable: "--ff-display",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+  weight: ["700", "900"],
   display: "swap",
   preload: true,
   fallback: [
