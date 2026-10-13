@@ -12,7 +12,7 @@ export function PageHeader({
   description: string;
 }) {
   return (
-    <section className="relative border-b border-foreground/15 bg-foreground py-20 text-background md:py-28">
+    <section className="relative border-b border-foreground/15 bg-foreground py-12 text-background md:py-16">
       <div className="container">
         <span className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.3em] text-accent">
           <span className="h-px w-10 bg-accent" aria-hidden="true" />
