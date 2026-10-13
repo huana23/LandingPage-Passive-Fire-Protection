@@ -44,7 +44,7 @@ export interface Project {
 export const COMPANY = {
   name: "A&D Warner Pty Ltd",
   shortName: "A&D Warner",
-  email: "Adwarnerptyltd@outlook.com",
+  email: "admin@adwarnerpfp.com.au",
   phone: "+61 403 332 685",
   phoneTel: "+61403332685",
   region: "Servicing Sydney & NSW-wide",
