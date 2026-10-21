@@ -42,7 +42,7 @@ const autofillOverride = `
  * stub) and a Submit button.
  *
  * Submission goes through EmailJS using:
- *   - Service ID:   service_w956au7
+ *   - Service ID:   service_r1076ib
  *   - Template ID:  template_o6sa02n
  *   - Public Key:   3KVGEKm65rW7Opyga
  *
@@ -133,7 +133,7 @@ export function ContactForm() {
 
       const emailjs = await loadEmailJs();
       await emailjs.send(
-        "service_w956au7",
+        "service_r1076ib",
         "template_o6sa02n",
         templateParams,
         { publicKey: "3KVGEKm65rW7Opyga" },
